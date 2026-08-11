@@ -208,8 +208,7 @@ const App = () => {
         setInbox(prev => [...newEvents, ...prev]);
         showToast(`Week Completed. Net: ${formatMoney(netProfit)}. Payroll: ${formatMoney(payroll)}`);
     };
-
-    const WindowApp = ({ title, onClose, children }) => (
+                const WindowApp = ({ title, onClose, children }) => (
         <div className="window">
             <div className="window-header">
                 <div className="window-controls"><div className="dot red" onClick={onClose}></div><div className="dot yellow"></div><div className="dot green"></div></div>
@@ -312,8 +311,34 @@ const App = () => {
                                                 <div key={emp.id} className="bg-slate-800 p-4 rounded border border-slate-700">
                                                     <div className="font-bold text-white">{emp.name}</div>
                                                     <div className="text-xs text-osaccent mb-2 font-bold">{emp.role}</div>
-                                                    <div className="grid grid-cols-2 gap-1 text-[10px] text-slate-400 font-mono bg-slate-900 p-2 round
-                                                   <span>Eng: <span className="text-white">{app.engineering}</span></span>
+                                                    <div className="grid grid-cols-2 gap-1 text-[10px] text-slate-400 font-mono bg-slate-900 p-2 rounded">
+                                                        <div>Eng: <span className="text-white">{emp.engineering}</span></div>
+                                                        <div>Cha: <span className="text-white">{emp.charisma}</span></div>
+                                                        <div>Log: <span className="text-white">{emp.logic}</span></div>
+                                                        <div>Mgt: <span className="text-white">{emp.management}</span></div>
+                                                    </div>
+                                                    <div className="text-xs text-red-400 mt-2 font-mono">Cost: -{formatMoney(emp.salary)}/wk</div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                            {teamTab === 'hr' && (
+                                <div>
+                                    {company.tier === 1 ? (
+                                        <div className="text-center p-10 bg-slate-800/50 rounded border border-dashed border-slate-600 text-slate-400">
+                                            HR Systems unavailable in the Garage. Upgrade office first.
+                                        </div>
+                                    ) : (
+                                        <div className="grid grid-cols-1 gap-4">
+                                            {applicants.map(app => (
+                                                <div key={app.id} className="bg-slate-800 p-4 rounded border border-slate-700 flex justify-between items-center">
+                                                    <div>
+                                                        <div className="font-bold text-white text-lg">{app.name}</div>
+                                                        <div className="text-sm text-slate-400 mb-2">Applying for: <span className="text-osaccent font-bold">{app.role}</span></div>
+                                                        <div className="flex gap-3 text-xs text-slate-400 font-mono">
+                                                            <span>Eng: <span className="text-white">{app.engineering}</span></span>
                                                             <span>Cha: <span className="text-white">{app.charisma}</span></span>
                                                             <span>Log: <span className="text-white">{app.logic}</span></span>
                                                             <span>Mgt: <span className="text-white">{app.management}</span></span>
@@ -410,7 +435,8 @@ const App = () => {
                                                     )}
                                                 </div>
                                                 <button onClick={()=>takeContract(c)} className="w-full bg-slate-700 hover:bg-osaccent hover:text-slate-900 py-2 rounded font-bold text-sm transition-colors">
-                                                    {c.type === 'ap' ? 'Execute Manually' : 'Assign Team'}
+                                                    {c.type === 'ap' ? 'Execute Manually' : 'Assign Team'
+                                                        }
                                                 </button>
                                             </div>
                                         ))}
